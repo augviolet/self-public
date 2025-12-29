@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电商后台 - 评价管理列表（RPA测试页面）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+            border-bottom: 2px solid #1890ff;
+            padding-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #e8e8e8;
+            padding: 12px 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #fafafa;
+            color: #333;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        td {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .next-table-row {
+            transition: background-color 0.2s;
+        }
+
+        .next-table-row:hover {
+            background-color: #f0f7ff;
+        }
+
+        .next-table-expanded-row {
+            background-color: #f9f9f9;
+        }
+
+        .next-table-expanded-row td {
+            padding: 20px;
+        }
+
+        .sub-table {
+            width: 100%;
+            margin: 10px 0;
+            background-color: white;
+        }
+
+        .sub-table th {
+            background-color: #e6f7ff;
+        }
+
+        .sub-table td {
+            font-size: 12px;
+        }
+
+        /* 情感状态样式 */
+        .sentiment-positive {
+            color: #52c41a;
+            font-weight: bold;
+        }
+
+        .sentiment-neutral {
+            color: #faad14;
+            font-weight: bold;
+        }
+
+        .sentiment-negative {
+            color: #ff4d4f;
+            font-weight: bold;
+        }
+
+        /* 按钮样式 */
+        button {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+            margin-right: 5px;
+        }
+
+        .btn-reply {
+            background-color: #1890ff;
+            color: white;
+        }
+
+        .btn-reply:hover {
+            background-color: #40a9ff;
+        }
+
+        .btn-detail {
+            background-color: #d9d9d9;
+            color: #666;
+        }
+
+        .btn-detail:hover {
+            background-color: #bfbfbf;
+        }
+
+        .review-content {
+            line-height: 1.6;
+            max-width: 400px;
+        }
+
+        .expanded-content {
+            background-color: white;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 3px solid #1890ff;
+        }
+
+        .expanded-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 评价管理列表</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>情感状态</th>
+                    <th>评价内容</th>
+                    <th>用户昵称</th>
+                    <th>评价时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 第1行 -->
+                <tr class="next-table-row">
+                    <td data-next-table-col="0">1</td>
+                    <td data-next-table-col="1"><span class="sentiment-positive">正面评价</span></td>
+                    <td data-next-table-col="2">
+                        <div class="review-content">
+                            宝贝收到了，质量非常好！<br>
+                            物流也很快，包装很仔细。<br>
+                            客服态度很好，推荐购买！
+                        </div>
+                    </td>
+                    <td data-next-table-col="3">张三</td>
+                    <td data-next-table-col="4">2025-12-28 14:23:15</td>
+                    <td data-next-table-col="5">
+                        <button class="btn-reply" onclick="handleReplyClick(1, '评价回复')">评价回复</button>
+                    </td>
+                </tr>
+
+                <!-- 第2行 -->
+                <tr class="next-table-row">
+                    <td data-next-table-col="0">2</td>
+                    <td data-next-table-col="1"><span class="sentiment-negative">负面评价</span></td>
+                    <td data-next-table-col="2">
+                        <div class="review-content">
+                            收到的商品有点色差，<br>
+                            和图片不太一样。<br>
+                            而且尺码偏小，建议改进。
+                        </div>
+                    </td>
+                    <td data-next-table-col="3">李四</td>
+                    <td data-next-table-col="4">2025-12-28 10:15:42</td>
+                    <td data-next-table-col="5">
+                        <button class="btn-reply" onclick="handleReplyClick(2, '评价回复')">评价回复</button>
+                    </td>
+                </tr>
+
+                <!-- 第3行 -->
+                <tr class="next-table-row">
+                    <td data-next-table-col="0">3</td>
+                    <td data-next-table-col="1"><span class="sentiment-neutral">中性评价</span></td>
+                    <td data-next-table-col="2">
+                        <div class="review-content">
+                            还行吧，价格便宜。<br>
+                            性价比可以，质量一般。<br>
+                            总体来说还算满意。
+                        </div>
+                    </td>
+                    <td data-next-table-col="3">王五</td>
+                    <td data-next-table-col="4">2025-12-27 18:30:22</td>
+                    <td data-next-table-col="5">
+                        <button class="btn-detail" onclick="handleOtherClick()">查看详情</button>
+                    </td>
+                </tr>
+
+                <!-- 第3行后的展开详情行 -->
+                <tr class="next-table-expanded-row">
+                    <td colspan="6">
+                        <div class="expanded-content">
+                            <div class="expanded-title">📊 展开详情 - 用户历史评价记录（子表格）</div>
+                            <table class="sub-table">
+                                <thead>
+                                    <tr>
+                                        <th>历史订单号</th>
+                                        <th>商品名称</th>
+                                        <th>评价星级</th>
+                                        <th>评价时间</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ORD20251201001</td>
+                                        <td>夏季短袖T恤</td>
+                                        <td>⭐⭐⭐⭐</td>
+                                        <td>2025-12-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ORD20251115002</td>
+                                        <td>运动鞋</td>
+                                        <td>⭐⭐⭐⭐⭐</td>
+                                        <td>2025-11-15</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- 第4行 -->
+                <tr class="next-table-row">
+                    <td data-next-table-col="0">4</td>
+                    <td data-next-table-col="1"><span class="sentiment-positive">正面评价</span></td>
+                    <td data-next-table-col="2">
+                        <div class="review-content">
+                            超级满意！！！<br>
+                            卖家发货速度快，商品质量好。<br>
+                            下次还会再来的，五星好评！
+                        </div>
+                    </td>
+                    <td data-next-table-col="3">赵六</td>
+                    <td data-next-table-col="4">2025-12-27 09:45:10</td>
+                    <td data-next-table-col="5">
+                        <button class="btn-reply" onclick="handleReplyClick(4, '追评回复')">追评回复</button>
+                    </td>
+                </tr>
+
+                <!-- 第5行 -->
+                <tr class="next-table-row">
+                    <td data-next-table-col="0">5</td>
+                    <td data-next-table-col="1"><span class="sentiment-negative">负面评价</span></td>
+                    <td data-next-table-col="2">
+                        <div class="review-content">
+                            物流太慢了，等了一个星期。<br>
+                            商品质量也就那样，<br>
+                            不会回购了。
+                        </div>
+                    </td>
+                    <td data-next-table-col="3">孙七</td>
+                    <td data-next-table-col="4">2025-12-26 16:20:33</td>
+                    <td data-next-table-col="5">
+                        <button class="btn-reply" onclick="handleReplyClick(5, '评价回复')">评价回复</button>
+                    </td>
+                </tr>
+
+                <!-- 第6行 -->
+                <tr class="next-table-row">
+                    <td data-next-table-col="0">6</td>
+                    <td data-next-table-col="1"><span class="sentiment-neutral">中性评价</span></td>
+                    <td data-next-table-col="2">
+                        <div class="review-content">
+                            商品还可以，<br>
+                            但客服回复有点慢。<br>
+                            希望以后能改进服务。
+                        </div>
+                    </td>
+                    <td data-next-table-col="3">周八</td>
+                    <td data-next-table-col="4">2025-12-26 11:12:45</td>
+                    <td data-next-table-col="5">
+                        <button class="btn-reply" onclick="handleReplyClick(6, '评价回复')">评价回复</button>
+                    </td>
+                </tr>
+
+                <!-- 第7行 -->
+                <tr class="next-table-row">
+                    <td data-next-table-col="0">7</td>
+                    <td data-next-table-col="1"><span class="sentiment-positive">正面评价</span></td>
+                    <td data-next-table-col="2">
+                        <div class="review-content">
+                            非常喜欢这个颜色！<br>
+                            面料舒适，做工精细。<br>
+                            已经推荐给朋友了！
+                        </div>
+                    </td>
+                    <td data-next-table-col="3">吴九</td>
+                    <td data-next-table-col="4">2025-12-25 20:05:18</td>
+                    <td data-next-table-col="5">
+                        <button class="btn-detail" onclick="handleOtherClick()">查看详情</button>
+                    </td>
+                </tr>
+
+                <!-- 第7行后的展开详情行 -->
+                <tr class="next-table-expanded-row">
+                    <td colspan="6">
+                        <div class="expanded-content">
+                            <div class="expanded-title">📊 展开详情 - 商品购买统计（子表格）</div>
+                            <table class="sub-table">
+                                <thead>
+                                    <tr>
+                                        <th>商品SKU</th>
+                                        <th>购买数量</th>
+                                        <th>订单金额</th>
+                                        <th>支付方式</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>SKU-2025-A001</td>
+                                        <td>2件</td>
+                                        <td>¥299.00</td>
+                                        <td>支付宝</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SKU-2025-A002</td>
+                                        <td>1件</td>
+                                        <td>¥159.00</td>
+                                        <td>微信支付</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- 第8行 -->
+                <tr class="next-table-row">
+                    <td data-next-table-col="0">8</td>
+                    <td data-next-table-col="1"><span class="sentiment-negative">负面评价</span></td>
+                    <td data-next-table-col="2">
+                        <div class="review-content">
+                            质量太差了，<br>
+                            穿了两天就起球。<br>
+                            强烈不推荐！申请退款。
+                        </div>
+                    </td>
+                    <td data-next-table-col="3">郑十</td>
+                    <td data-next-table-col="4">2025-12-25 13:40:52</td>
+                    <td data-next-table-col="5">
+                        <button class="btn-reply" onclick="handleReplyClick(8, '追评回复')">追评回复</button>
+                    </td>
+                </tr>
+
+                <!-- 第9行 -->
+                <tr class="next-table-row">
+                    <td data-next-table-col="0">9</td>
+                    <td data-next-table-col="1"><span class="sentiment-positive">正面评价</span></td>
+                    <td data-next-table-col="2">
+                        <div class="review-content">
+                            物美价廉，性价比超高！<br>
+                            穿着很舒服，<br>
+                            朋友都说好看，会回购的！
+                        </div>
+                    </td>
+                    <td data-next-table-col="3">陈十一</td>
+                    <td data-next-table-col="4">2025-12-24 17:25:30</td>
+                    <td data-next-table-col="5">
+                        <button class="btn-reply" onclick="handleReplyClick(9, '评价回复')">评价回复</button>
+                    </td>
+                </tr>
+
+                <!-- 第10行 -->
+                <tr class="next-table-row">
+                    <td data-next-table-col="0">10</td>
+                    <td data-next-table-col="1"><span class="sentiment-neutral">中性评价</span></td>
+                    <td data-next-table-col="2">
+                        <div class="review-content">
+                            还没穿，看着还行。<br>
+                            等穿了再来追评。<br>
+                            目前先给个中评吧。
+                        </div>
+                    </td>
+                    <td data-next-table-col="3">黄十二</td>
+                    <td data-next-table-col="4">2025-12-24 10:08:15</td>
+                    <td data-next-table-col="5">
+                        <button class="btn-detail" onclick="handleOtherClick()">查看详情</button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // 处理回复按钮点击
+        function handleReplyClick(rowNumber, buttonType) {
+            alert('成功点击第 ' + rowNumber + ' 行的回复按钮（' + buttonType + '）');
+        }
+
+        // 处理其他按钮点击
+        function handleOtherClick() {
+            alert('无需回复');
+        }
+
+        // 页面加载完成提示
+        window.onload = function() {
+            console.log('RPA 测试页面加载完成！');
+            console.log('页面包含 10 行主数据，第 3 行和第 7 行后有展开详情（含子表格）');
+            console.log('适合测试 XPath 定位和按钮点击自动化');
+        };
+    </script>
+</body>
+</html>
